@@ -37,3 +37,20 @@ output "internet_gateway_id" {
   value       = aws_internet_gateway.cloudlearn_igw.id
 
 }
+
+output "nat_gateway_ids" {
+  description = "IDs of Cloudlearn NAT Gateways"
+  value = [
+    aws_nat_gateway.nat_gateway_1.id,
+    aws_nat_gateway.nat_gateway_2.id
+  ]
+}
+
+output "private_route_table_ids" {
+  description = "IDs of Cloudlearn Private Routes Tables"
+  value = [
+    aws_route_table.private_route_table_1.id,
+    aws_route_table.private_route_table_2.id
+
+  ]
+}
