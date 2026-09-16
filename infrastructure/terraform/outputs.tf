@@ -31,3 +31,9 @@ output "private_db_subnets_ids" {
     aws_subnet.private_db_subnet_2.id
   ]
 }
+
+output "internet_gateway_id" {
+  description = "ID of the cloudlearn Internet Gateway"
+  value       = aws_internet_gateway.cloudlearn_igw.id
+
+}
