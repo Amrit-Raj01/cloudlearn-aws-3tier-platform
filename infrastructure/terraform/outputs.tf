@@ -54,3 +54,28 @@ output "private_route_table_ids" {
 
   ]
 }
+
+output "alb_security_group_id" {
+  description = "Security Group ID for the CloudLearn ALB"
+  value       = aws_security_group.alb_sg.id
+}
+
+output "app_security_group_id" {
+  description = "Security Group ID for CloudLearn application servers"
+  value       = aws_security_group.app_sg.id
+}
+
+output "db_security_group_id" {
+  description = "Security Group ID for the CloudLearn database"
+  value       = aws_security_group.db_sg.id
+}
+
+output "backend_instance_id" {
+  description = "ID of the CloudLearn backend EC2 instance"
+  value       = aws_instance.cloudlearn_backend.id
+}
+
+output "backend_private_ip" {
+  description = "Private IP address of the CloudLearn backend EC2 instance"
+  value       = aws_instance.cloudlearn_backend.private_ip
+}
