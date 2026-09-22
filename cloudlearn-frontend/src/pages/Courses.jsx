@@ -10,7 +10,7 @@ function Courses() {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/courses"
+          `${import.meta.env.VITE_API_URL}/api/courses`
         );
 
         const result = await response.json();
