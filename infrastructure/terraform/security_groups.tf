@@ -89,39 +89,3 @@ resource "aws_security_group" "app_sg" {
     Tier        = "Private-App"
   }
 }
-
-
-# ==========================================
-# CloudLearn Database Security Group
-# ==========================================
-
-resource "aws_security_group" "db_sg" {
-  name        = "${var.project_name}-db-sg"
-  description = "Security group for CloudLearn database"
-  vpc_id      = aws_vpc.cloudlearn_vpc.id
-
-  # MySQL
-  ingress {
-    description     = "Allow MySQL traffic from application servers"
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [aws_security_group.app_sg.id]
-  }
-
-  # Outbound traffic
-  egress {
-    description = "Allow outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name        = "${var.project_name}-db-sg"
-    Project     = var.project_name
-    Environment = var.environment
-    Tier        = "Private-DB"
-  }
-}

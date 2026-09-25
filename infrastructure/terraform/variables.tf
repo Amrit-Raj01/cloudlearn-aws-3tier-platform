@@ -8,7 +8,7 @@ variable "aws_region" {
 variable "project_name" {
   description = "project_name used for resource naming"
   type        = string
-  default     = "cloudlearn"
+  default     = "Cloudlearn"
 
 
 }

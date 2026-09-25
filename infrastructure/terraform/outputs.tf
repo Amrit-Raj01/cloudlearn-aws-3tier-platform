@@ -24,13 +24,6 @@ output "private_app_subnets_ids" {
   ]
 }
 
-output "private_db_subnets_ids" {
-  description = "IDs of Cloudlearn Private DB Subnet"
-  value = [
-    aws_subnet.private_db_subnet_1.id,
-    aws_subnet.private_db_subnet_2.id
-  ]
-}
 
 output "internet_gateway_id" {
   description = "ID of the cloudlearn Internet Gateway"
@@ -65,10 +58,6 @@ output "app_security_group_id" {
   value       = aws_security_group.app_sg.id
 }
 
-output "db_security_group_id" {
-  description = "Security Group ID for the CloudLearn database"
-  value       = aws_security_group.db_sg.id
-}
 
 output "backend_instance_id" {
   description = "ID of the CloudLearn backend EC2 instance"

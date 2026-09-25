@@ -2,12 +2,13 @@
 
 # RDS SECURITY GROUP
 resource "aws_security_group" "rds_sg" {
+
   name        = "${var.project_name}-rds-sg"
-  description = "Security Group for Cloudlearn RDS MYSQL"
+  description = "Security Group for CloudLearn RDS MYSQL"
   vpc_id      = aws_vpc.cloudlearn_vpc.id
 
   ingress {
-    description     = "MYSQL access from cloudlearn backend"
+    description     = "MYSQL access from CloudLearn backend"
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
@@ -29,36 +30,38 @@ resource "aws_security_group" "rds_sg" {
   }
 }
 
-# RDS Subnet Group
 
+# RDS Subnet Group
 resource "aws_db_subnet_group" "cloudlearn_rds_subnet_group" {
-  name = "${var.project_name}-rds-subnet-group"
+
+  # RDS subnet-group names must be lowercase
+  name = "cloudlearn-rds-subnet-group"
 
   subnet_ids = [
-    aws_subnet.private_app_subnet_1.id,
-    aws_subnet.private_app_subnet_2.id
+    aws_subnet.private_db_subnet_1.id,
+    aws_subnet.private_db_subnet_2.id
   ]
 
   tags = {
-    Name        = "${var.project_name}-rds-subnet-group"
+    Name        = "cloudlearn-rds-subnet-group"
     Project     = var.project_name
     Environment = var.environment
   }
 }
 
-# MYSQL RDS Instance
 
+# MYSQL RDS Instance
 resource "aws_db_instance" "cloudlearn_mysql" {
-  identifier = "${var.project_name}-mysql"
+
+  identifier = "cloudlearn-mysql"
 
   engine         = "mysql"
   engine_version = "8.0"
 
   instance_class        = "db.t3.micro"
-  allocated_storage     = 30
+  allocated_storage     = 20
   max_allocated_storage = 20
   storage_type          = "gp3"
-
 
   db_name  = var.db_name
   username = var.db_username
@@ -88,24 +91,22 @@ resource "aws_db_instance" "cloudlearn_mysql" {
     Project     = var.project_name
     Environment = var.environment
   }
-
 }
 
 
-# RDS Outputs 
+# RDS Outputs
 
 output "rds_endpoint" {
-  description = "Cloudlearn RDS MYSQL endpoint"
+  description = "CloudLearn RDS MYSQL endpoint"
   value       = aws_db_instance.cloudlearn_mysql.address
 }
 
 output "rds_port" {
-  description = "Cloudlearn RDS MYSQL port"
+  description = "CloudLearn RDS MYSQL port"
   value       = aws_db_instance.cloudlearn_mysql.port
 }
 
 output "rds_database_name" {
-  description = "Cloudlearn RDS Database name"
+  description = "CloudLearn RDS Database name"
   value       = aws_db_instance.cloudlearn_mysql.db_name
-
 }
