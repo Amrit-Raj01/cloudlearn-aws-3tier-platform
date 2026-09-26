@@ -1,322 +1,741 @@
-# CloudLearn — Highly Available 3-Tier Online Learning Platform on AWS
+# ☁️ CloudLearn — Highly Available 3-Tier Online Learning Platform on AWS
 
-CloudLearn is a cloud-focused online learning platform being developed with a **3-tier architecture on AWS**. The project is designed to demonstrate practical cloud engineering concepts including application architecture, AWS networking, infrastructure as code, security, scalability, and high availability.
+CloudLearn is a cloud-focused online learning platform designed to demonstrate **AWS infrastructure, networking, application deployment, database integration, load balancing, Infrastructure as Code, and production-oriented cloud architecture**.
 
-The primary goal of this project is to build and deploy a production-oriented application while maintaining a strong focus on **AWS cloud infrastructure rather than application development alone**.
+The project is being developed using a **3-tier architecture** with a React frontend, Node.js/Express backend, and MySQL database hosted on Amazon RDS.
+
+> 🚧 **Project Status:** Active Development
+> Current focus: AWS infrastructure, backend deployment, RDS integration, Application Load Balancer, monitoring, frontend cloud deployment, and CI/CD.
 
 ---
 
-## 🏗️ Project Architecture
-
-The planned architecture follows a 3-tier model:
+## 🏗️ Architecture
 
 ```text
-                    Users
-                      │
-                      ▼
-              ┌──────────────┐
-              │   Frontend   │
-              │   Web Tier   │
-              └──────┬───────┘
-                     │
-                     ▼
-              ┌──────────────┐
-              │   Backend    │
-              │ Application  │
-              │     Tier     │
-              └──────┬───────┘
-                     │
-                     ▼
-              ┌──────────────┐
-              │   Database   │
-              │     Tier     │
-              └──────────────┘
+                         Users
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │   React + Vite      │
+                │     Frontend        │
+                └──────────┬──────────┘
+                           │
+                           │ HTTP/API
+                           ▼
+                ┌─────────────────────┐
+                │ Application Load    │
+                │      Balancer       │
+                │       (ALB)         │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │   EC2 Backend       │
+                │ Node.js + Express   │
+                │       + PM2         │
+                └──────────┬──────────┘
+                           │
+                           │ MySQL
+                           ▼
+                ┌─────────────────────┐
+                │    Amazon RDS       │
+                │       MySQL         │
+                └─────────────────────┘
 
-              AWS Infrastructure
-        VPC • Subnets • Security Groups
-        Load Balancer • EC2 • RDS • IAM
+
 ```
 
-The final architecture will be designed to separate the presentation, application, and database layers while improving security, scalability, and availability.
+The infrastructure is provisioned and managed using **Terraform**.
 
 ---
 
-## 🚀 Current Progress
+# 🚀 Current Project Status
 
-### Frontend — Completed Initial Development
-
-The CloudLearn frontend has been developed using **React + Vite**.
-
-Implemented pages and components include:
-
-* Home page
-* Courses page
-* Course Details page
-* Login page
-* Registration page
-* Dashboard
-* Learning page
-* Profile page
-* Navigation bar
-* Footer
-* Reusable course cards
-* Reusable section headers
-* Responsive dark-themed UI
-
-The frontend is being developed as the presentation layer of the future AWS 3-tier architecture.
-
----
-
-### Backend — Initial API Development
-
-The backend development phase has been started.
-
-Current work includes:
-
-* Backend project structure
-* Node.js-based backend setup
-* Express.js application structure
-* API development foundation
-* Backend integration planning with the frontend
-* Authentication and database integration planned as part of the next development stages
-
-The backend will act as the application tier between the frontend and database.
+| Component                   | Status                                |
+| --------------------------- | ------------------------------------- |
+| React + Vite Frontend       | ✅ Developed locally                   |
+| Node.js + Express Backend   | ✅ Developed                           |
+| REST API                    | ✅ Working                             |
+| AWS VPC                     | ✅ Configured                          |
+| Public / Private Subnets    | ✅ Configured                          |
+| Internet Gateway            | ✅ Configured                          |
+| NAT Gateway / EIP           | ✅ Configured                          |
+| EC2 Backend Server          | ✅ Deployed                            |
+| IAM Role / Instance Profile | ✅ Configured                          |
+| AWS Systems Manager         | ✅ Configured                          |
+| Backend Process Management  | ✅ PM2                                 |
+| Amazon RDS MySQL            | ✅ Provisioned                         |
+| RDS Private Networking      | ✅ Configured                          |
+| Application Load Balancer   | ✅ Configured                          |
+| ALB → Backend Routing       | ✅ Verified                            |
+| Terraform Infrastructure    | ✅ Implemented                         |
+| CloudWatch Monitoring       | 🔄 Planned / Next Phase               |
+| S3 Frontend Hosting         | 🔄 Planned                            |
+| CloudFront CDN              | ⏳ Pending |
+| CI/CD with GitHub Actions   | 🔄 Planned                            |
+| Production Hardening        | 🔄 Planned                            |
 
 ---
 
-### Infrastructure as Code — Terraform Initialized
-
-Terraform has been initialized for the project to manage AWS infrastructure as code.
-
-Current status:
-
-* Terraform project initialized
-* Infrastructure directory established
-* Terraform workflow introduced
-* AWS infrastructure provisioning planned through Terraform
-
-The infrastructure layer will progressively include AWS networking, compute, security, load balancing, and database resources.
-
----
-
-## ☁️ AWS Infrastructure Goals
-
-The project is being designed with a strong AWS focus.
-
-Planned infrastructure includes:
-
-* Amazon VPC
-* Public and private subnets
-* Internet Gateway
-* Route tables
-* Security Groups
-* Application Load Balancer
-* Amazon EC2
-* Amazon RDS
-* IAM
-* Availability Zones
-* Auto Scaling
-* CloudWatch monitoring
-* Secure communication between application tiers
-
-The infrastructure will be provisioned progressively using **Terraform** instead of relying entirely on manual AWS Console configuration.
-
----
-
-## 🔐 Security Approach
-
-Security is an important part of the architecture.
-
-The project is planned around:
-
-* IAM-based access control
-* Least-privilege permissions
-* Private subnets for backend/database resources where appropriate
-* Security Groups for network-level access control
-* Restricted inbound and outbound traffic
-* Environment variables for application configuration
-* Separation between public-facing and internal resources
-
-Sensitive credentials and environment configuration will not be committed to the repository.
-
----
-
-## 🛠️ Technology Stack
+# 🛠️ Technology Stack
 
 ### Frontend
 
 * React
 * Vite
 * JavaScript
-* HTML
-* CSS
+* HTML5
+* CSS3
 
 ### Backend
 
 * Node.js
 * Express.js
 * REST APIs
+* PM2
 
-### Cloud
+### Database
 
-* Amazon Web Services (AWS)
-* VPC
-* EC2
-* RDS
-* IAM
+* Amazon RDS
+* MySQL
+
+### AWS
+
+* Amazon VPC
+* Amazon EC2
+* Amazon RDS
 * Application Load Balancer
-* CloudWatch
+* IAM
+* AWS Systems Manager
+* Internet Gateway
+* NAT Gateway
+* Elastic IP
+* Amazon S3 — planned for frontend hosting
+* Amazon CloudFront — planned
+* Amazon CloudWatch — planned
 
-### Infrastructure as Code
+### Infrastructure & DevOps
 
 * Terraform
-
-### Development & Version Control
-
 * Git
 * GitHub
-* VS Code
+* GitHub Actions — planned
 * Linux
+* Bash
+* AWS CLI
 
 ---
 
-## 📁 Project Structure
-
-The project is being organized as a single repository:
+# 📁 Project Structure
 
 ```text
-cloudlearn-aws-3tier-platform/
+Cloud_learn_project/
 │
 ├── cloudlearn-frontend/
 │   ├── src/
-│   ├── public/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   └── ...
 │   ├── package.json
-│   └── ...
+│   └── vite.config.js
 │
 ├── cloudlearn-backend/
 │   ├── src/
-│   ├── routes/
-│   ├── controllers/
+│   │   ├── routes/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   └── server.js
+│   ├── package.json
 │   └── ...
 │
 ├── infrastructure/
 │   └── terraform/
-│       ├── main.tf
+│       ├── provider.tf
 │       ├── variables.tf
+│       ├── vpc.tf
+│       ├── security.tf
+│       ├── ec2.tf
+│       ├── alb.tf
+│       ├── rds.tf
 │       ├── outputs.tf
 │       └── ...
 │
 ├── docs/
 │
-├── README.md
-└── .gitignore
+├── .gitignore
+└── README.md
 ```
 
----
-
-## 🎯 Project Objectives
-
-The major objectives of CloudLearn are:
-
-1. Build a functional online learning platform.
-2. Implement a clean 3-tier application architecture.
-3. Design a secure AWS network using VPC and subnet segmentation.
-4. Deploy application components using AWS compute services.
-5. Implement a managed database architecture.
-6. Introduce load balancing and high availability.
-7. Automate AWS infrastructure using Terraform.
-8. Practice real-world Git and GitHub workflows.
-9. Understand cloud networking and infrastructure design through hands-on implementation.
-10. Build a production-oriented AWS project suitable for a cloud engineering portfolio.
+The project uses **one Git repository at the project root**, containing frontend, backend, infrastructure, and documentation.
 
 ---
 
-## 📌 Development Philosophy
+# ☁️ AWS Infrastructure
 
-CloudLearn is intentionally being developed with **greater emphasis on cloud infrastructure and AWS architecture** rather than focusing only on application development.
+## VPC
 
-The application provides the workload, while AWS infrastructure demonstrates:
-
-* Networking
-* Security
-* Compute
-* Storage
-* Database architecture
-* Scalability
-* Availability
-* Infrastructure as Code
-* Monitoring
-
-This makes the project a practical demonstration of cloud engineering concepts.
-
----
-
-## 🔄 Development Workflow
-
-The project follows a Git-based development workflow:
+The application infrastructure is deployed inside a custom VPC.
 
 ```text
-Development
-     ↓
-Local Testing
-     ↓
-Git Branch
-     ↓
-Commit
-     ↓
-GitHub
-     ↓
-Infrastructure / Application Deployment
-     ↓
-AWS
+VPC
+10.0.0.0/16
+│
+├── Public Subnets
+│   ├── Application Load Balancer
+│   └── NAT Gateway
+│
+└── Private Subnets
+    ├── Backend EC2
+    └── RDS MySQL
 ```
 
-The repository is maintained as a single project containing the frontend, backend, and infrastructure components.
+The VPC is configured with:
+
+* Custom CIDR block
+* DNS support
+* DNS hostnames
+* Public subnets
+* Private subnets
+* Route tables
+* Internet Gateway
+* NAT Gateway
+* Elastic IP
+* Security Groups
 
 ---
 
-## 📊 Project Status
+# 🖥️ Backend — Amazon EC2
 
-### Current Development Status
+The Node.js backend is deployed on an Amazon EC2 instance.
 
-| Component                | Status                          |
-| ------------------------ | ------------------------------- |
-| Project Planning         | ✅ Completed                     |
-| Frontend Structure       | ✅ Completed                     |
-| Frontend UI              | ✅ Initial Development Completed |
-| Backend Setup            | ✅ Started                       |
-| Backend API              | 🚧 Developing                   |
-| Authentication           | 🚧 Developing                   |
-| Database Integration     | 🚧 Developing                   |
-| Terraform Initialization | ✅ Completed                     |
-| AWS VPC                  | 🚧 Developing                   |
-| AWS Subnet Architecture  | 🚧 Developing                   |
-| EC2 Deployment           | ⏳ Planned                       |
-| RDS                      | ⏳ Planned                       |
-| Load Balancer            | ⏳ Planned                       |
-| High Availability        | ⏳ Planned                       |
-| Auto Scaling             | ⏳ Planned                       |
-| Monitoring               | ⏳ Planned                       |
+### Backend stack
 
----
+```text
+Node.js
+   │
+Express.js
+   │
+REST API
+   │
+PM2
+   │
+Amazon EC2
+```
 
-## 🚧 Developing Phase
+The backend application is managed using **PM2** for process management.
 
-**CloudLearn is currently in the developing phase.**
+Example production process:
 
-The frontend foundation and initial backend development have been completed, while the application API, authentication, database integration, and AWS infrastructure are actively being developed.
+```bash
+pm2 start
+pm2 save
+```
 
-The next major phase is focused on building the **AWS 3-tier infrastructure using Terraform**, including VPC networking, public/private subnet design, security groups, compute resources, database services, load balancing, and high-availability architecture.
-
-The architecture and implementation will continue to evolve as additional AWS components are integrated into the project.
+AWS Systems Manager is also configured for server administration, reducing the need to depend on direct SSH access for normal management.
 
 ---
 
-## 👨‍💻 Project Focus
+# ⚖️ Application Load Balancer
 
-**Primary Focus:** Cloud Engineering / AWS Infrastructure
+An **Application Load Balancer (ALB)** has been implemented between the application entry point and the backend.
 
-**Secondary Focus:** Backend Application Development and Infrastructure Automation
+```text
+Client
+  │
+  ▼
+ALB
+  │
+  ▼
+Target Group
+  │
+  ▼
+EC2 Backend
+```
 
-CloudLearn is being built as a hands-on project to demonstrate practical skills required for **Cloud Engineer, Infrastructure Engineer, SRE, and Cloud Support** roles.
+Configured components include:
 
+* Application Load Balancer
+* ALB Security Group
+* Target Group
+* Target Group Attachment
+* HTTP Listener
+* Backend EC2 target
+
+ALB-to-backend routing has been tested and verified using API requests.
+
+---
+
+# 🗄️ Amazon RDS — MySQL
+
+The project uses **Amazon RDS for MySQL** as the relational database layer.
+
+Current architecture:
+
+```text
+EC2 Backend
+     │
+     │ MySQL
+     ▼
+Amazon RDS
+     │
+Private Subnet
+```
+
+RDS configuration includes:
+
+* MySQL
+* `db.t3.micro`
+* 20 GB gp3 storage
+* Private networking
+* Dedicated RDS security group
+* Database subnet group
+* Application-specific database configuration
+
+The database is intentionally kept **non-public**, with access controlled through security groups.
+
+---
+
+# 🔐 Security
+
+Security is an important part of the project architecture.
+
+Implemented security controls include:
+
+* Private backend subnet
+* Private RDS deployment
+* Security Groups
+* Separate application and database security groups
+* IAM instance role
+* AWS Systems Manager access
+* Restricted database access
+* Environment variables for sensitive application configuration
+* Terraform variable files excluded from Git tracking
+
+### Sensitive files
+
+Files containing credentials or environment-specific secrets should not be committed to GitHub.
+
+Example:
+
+```gitignore
+*.tfvars
+*.tfvars.json
+.env
+.terraform/
+*.tfstate
+*.tfstate.*
+```
+
+> **Never commit AWS credentials, database passwords, API keys, or other secrets to the repository.**
+
+---
+
+# 🏗️ Infrastructure as Code — Terraform
+
+AWS infrastructure is managed using Terraform.
+
+Current Terraform components include:
+
+```text
+provider.tf
+variables.tf
+vpc.tf
+security.tf
+ec2.tf
+alb.tf
+rds.tf
+outputs.tf
+```
+
+Terraform is used for:
+
+* VPC provisioning
+* Subnets
+* Route tables
+* Internet Gateway
+* NAT Gateway
+* Elastic IP
+* Security Groups
+* EC2
+* IAM resources
+* Application Load Balancer
+* Target Groups
+* RDS
+* Database subnet configuration
+
+Typical workflow:
+
+```bash
+terraform init
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+```
+
+Infrastructure can also be destroyed when the development environment is not required in order to reduce unnecessary AWS costs.
+
+---
+
+# 🌐 Frontend
+
+The frontend is built using:
+
+* React
+* Vite
+* JavaScript
+* CSS
+
+Current frontend pages/components include:
+
+* Home
+* Courses
+* Course Details
+* Login
+* Register
+* Dashboard
+* Learning
+* Profile
+* Navbar
+* Footer
+* Course Cards
+
+The frontend currently runs successfully in the local development environment.
+
+The planned production architecture is:
+
+```text
+React/Vite
+     │
+     ▼
+Amazon S3
+     │
+     ▼
+CloudFront
+     │
+     ▼
+Users
+```
+
+# 📊 Monitoring & Observability
+
+CloudWatch is part of the planned production monitoring layer.
+
+Planned monitoring includes:
+
+* EC2 metrics
+* Application health
+* ALB metrics
+* RDS metrics
+* Logs
+* CloudWatch alarms
+* Resource monitoring
+
+```text
+AWS Resources
+      │
+      ▼
+CloudWatch
+      │
+      ├── Metrics
+      ├── Logs
+      └── Alarms
+```
+
+---
+
+# 🔄 CI/CD — Planned
+
+The next development stage includes implementing CI/CD using GitHub Actions.
+
+Planned workflow:
+
+```text
+Developer
+    │
+    ▼
+Git Push
+    │
+    ▼
+GitHub
+    │
+    ▼
+GitHub Actions
+    │
+    ├── Build
+    ├── Test
+    └── Deploy
+           │
+           ▼
+      AWS Infrastructure
+```
+
+The goal is to automate application build and deployment rather than manually deploying every change.
+
+---
+
+# 🔀 Git Workflow
+
+The project follows a single-repository workflow:
+
+```text
+Cloud_learn_project/
+        │
+        ├── frontend
+        ├── backend
+        ├── infrastructure
+        └── docs
+```
+
+All components are maintained in the same Git repository.
+
+
+For larger changes, feature branches can be used:
+
+```text
+main
+ │
+ ├── feature/frontend
+ ├── feature/backend
+ └── feature/infrastructure
+```
+
+---
+
+# 💰 AWS Cost Management
+
+Because this is a AWS development project, AWS cost management is considered during development.
+
+Resources such as EC2 and RDS can be stopped when they are not required for active development.
+
+Infrastructure can also be destroyed using Terraform when an environment is no longer needed.
+
+Example:
+
+```bash
+terraform destroy
+```
+
+> Before destroying infrastructure, verify that any required database data or configuration has been backed up.
+
+---
+
+# 🎯 Project Objectives
+
+CloudLearn is being developed to demonstrate practical understanding of:
+
+* AWS cloud infrastructure
+* VPC architecture
+* Public/private subnet design
+* Linux server administration
+* EC2 deployment
+* IAM
+* Security Groups
+* Application Load Balancing
+* RDS database architecture
+* Infrastructure as Code
+* Terraform
+* Application deployment
+* Cloud networking
+* Monitoring and observability
+* CI/CD automation
+* Cloud cost management
+
+---
+
+# 🧠 What This Project Demonstrates
+
+This project goes beyond simply deploying a web application.
+
+It focuses on understanding **how the infrastructure around an application is designed and operated**.
+
+Key areas demonstrated:
+
+```text
+Networking
+     │
+     ▼
+VPC + Subnets + Routing
+     │
+     ▼
+Security
+     │
+     ▼
+IAM + Security Groups
+     │
+     ▼
+Compute
+     │
+     ▼
+EC2 + PM2
+     │
+     ▼
+Load Balancing
+     │
+     ▼
+ALB
+     │
+     ▼
+Database
+     │
+     ▼
+RDS MySQL
+     │
+     ▼
+Automation
+     │
+     ▼
+Terraform + CI/CD
+     │
+     ▼
+Monitoring
+     │
+     ▼
+CloudWatch
+```
+
+---
+
+# 📌 Development Roadmap
+
+### Phase 1 — Application Foundation
+
+* [x] React frontend
+* [x] Vite setup
+* [x] Backend foundation
+* [x] Express API
+* [x] Project structure
+
+### Phase 2 — AWS Networking
+
+* [x] VPC
+* [x] Public subnets
+* [x] Private subnets
+* [x] Route tables
+* [x] Internet Gateway
+* [x] NAT Gateway
+* [x] Elastic IP
+
+### Phase 3 — Backend Deployment
+
+* [x] EC2
+* [x] Linux environment
+* [x] Node.js
+* [x] PM2
+* [x] AWS Systems Manager
+* [x] Backend deployment
+
+### Phase 4 — Database
+
+* [x] Amazon RDS MySQL
+* [x] RDS subnet group
+* [x] RDS security group
+* [x] Private database architecture
+* [x] Backend database integration
+
+### Phase 5 — Load Balancing
+
+* [x] Application Load Balancer
+* [x] Target Group
+* [x] Listener
+* [x] EC2 target attachment
+* [x] ALB → backend API verification
+
+### Phase 6 — Frontend Cloud Deployment
+
+* [ ] S3 frontend hosting
+* [ ] CloudFront distribution
+* [ ] CDN configuration
+* [ ] Production frontend URL
+
+> CloudFront creation is currently blocked by an AWS account verification requirement.
+
+### Phase 7 — Monitoring
+
+* [ ] CloudWatch metrics
+* [ ] CloudWatch logs
+* [ ] Alarms
+* [ ] Application monitoring
+
+### Phase 8 — CI/CD
+
+* [ ] GitHub Actions
+* [ ] Automated frontend build
+* [ ] Automated backend deployment
+* [ ] Infrastructure workflow
+* [ ] Deployment automation
+
+### Phase 9 — Production Hardening
+
+* [ ] HTTPS
+* [ ] Route 53
+* [ ] Better secret management
+* [ ] Additional security hardening
+* [ ] Backup strategy
+* [ ] Cost optimization
+* [ ] Final architecture documentation
+
+---
+
+# 📈 Current Architecture Maturity
+
+The project has progressed from a local full-stack application toward an AWS-based infrastructure architecture:
+
+```text
+Local Application
+       │
+       ▼
+AWS Networking
+       │
+       ▼
+EC2 Backend
+       │
+       ▼
+RDS Database
+       │
+       ▼
+Application Load Balancer
+       │
+       ▼
+Monitoring + CDN + CI/CD
+       │
+       ▼
+Production-Oriented Cloud Platform
+```
+
+The remaining work is primarily focused on **observability, frontend cloud delivery, automation, security hardening, and production deployment workflows**.
+
+---
+
+# 📂 Repository
+
+**GitHub:**
+https://github.com/Amrit-Raj01/cloudlearn-aws-3tier-platform
+
+---
+
+# 👨‍💻 Developer
+
+**Amrit Raj**
+
+B.Tech — Electronics & Communication Engineering (AI/ML)
+Galgotias University
+
+Interested in:
+
+* Cloud Engineering
+* AWS Infrastructure
+* SRE
+* Infrastructure Engineering
+* Cloud Support
+* DevOps
+* Linux & System Administration
+
+---
+
+## ⭐ Project Status
+
+**CloudLearn is an actively developing AWS cloud infrastructure project.**
+
+The core AWS networking, compute, database, load-balancing, and Terraform layers are currently implemented. The next stages focus on **CloudWatch monitoring, S3/CloudFront frontend deployment, CI/CD automation, and production hardening**.
